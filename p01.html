@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>分类导航与瀑布流展示</title>
+    <title>分类导航与垂直平铺展示</title>
     <style>
         body {
             margin: 0;
@@ -30,14 +30,13 @@
         }
 
         .navbar button.active {
-            border-bottom: 2px solid #ff9900;
+            color: #ff9900;
+            font-weight: bold;
         }
 
-        /* 瀑布流容器样式 */
+        /* 垂直平铺容器样式 */
         .container {
             display: none;
-            column-count: 3;
-            column-gap: 15px;
             padding: 20px;
         }
 
@@ -49,16 +48,20 @@
         .item {
             background-color: white;
             margin-bottom: 15px;
-            break-inside: avoid;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .item img {
-            width: 100%;
+            width: 90%;
             display: block;
+            margin: 10px auto;
+            border-radius: 5px;
         }
 
         .item .info {
