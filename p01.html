@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>商品展示</title>
     <style>
-        /* 全局样式 */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
         }
 
-        /* 顶部导航栏 */
+        /* 顶部导航样式 */
         .navbar {
             background-color: #333;
             color: white;
@@ -42,20 +41,24 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            cursor: pointer;
             display: flex;
             flex-direction: column;
             max-width: 500px;
-            cursor: pointer;
         }
 
         .item img {
             width: 100%;
-            height: 250px;
-            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid #f0f0f0;
         }
 
         .item .info {
             padding: 15px;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            align-items: center;
+            gap: 10px;
         }
 
         .item .info h3 {
@@ -64,105 +67,120 @@
         }
 
         .item .info .price {
-            font-size: 22px;
+            font-size: 22px; /* 增大字体 */
             color: #ff4500;
             font-weight: bold;
+            text-align: left; /* 将价格位置调整为左对齐 */
+            margin-top: 5px;
         }
 
         .item .info p {
+            grid-column: span 2;
             font-size: 14px;
             color: gray;
-            margin-top: 10px;
+            margin: 5px 0 0 0;
         }
 
         /* 浮动按钮样式 */
         .consult-btn {
             position: fixed;
             right: 20px;
-            bottom: 80px;
+            bottom: 80px; /* 向上偏移一点 */
             padding: 15px 20px;
             background-color: #ff9900;
             color: white;
             border: none;
             border-radius: 50px;
             font-size: 16px;
-            cursor: pointer;
-            z-index: 1000;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000; /* 确保浮动按钮在页面内容上方 */
+            transition: transform 0.3s ease;
         }
 
         .consult-btn:hover {
             transform: scale(1.1);
         }
 
-        /* 弹窗 - 商品介绍 */
-        .product-modal {
+        /* 弹窗样式 */
+        .modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: flex-end;
+            align-items: flex-end;
         }
 
-        .product-modal .modal-content {
+        .modal-content {
             background: white;
-            width: 80%;
-            max-width: 600px;
-            padding: 20px;
-            text-align: center;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            overflow: auto;
+            width: 100%;
+            height: 90%;
+            border-radius: 20px 20px 0 0;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
         }
 
-        .product-modal .modal-close {
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            position: relative;
+        }
+
+        .modal-body {
+            padding: 15px;
+        }
+
+        .modal-body img {
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .modal-close {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 15px;
+            right: 15px;
             background: none;
             border: none;
-            font-size: 24px;
-            color: #333;
+            font-size: 20px;
             cursor: pointer;
         }
 
-        .product-modal img {
-            width: 100%;
-            max-width: 500px;
-            margin: 20px 0;
-        }
+        @media (max-width: 768px) {
+            .navbar button {
+                font-size: 16px;
+            }
 
-        /* 弹窗 - 下单咨询 */
-        .consult-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-        }
+            .item {
+                max-width: 90%;
+            }
 
-        .consult-modal .modal-content {
-            background: white;
-            padding: 20px;
-            text-align: center;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
+            .item .info {
+                grid-template-columns: 1fr;
+            }
 
-        .consult-modal img {
-            width: 200px;
+            .item .info .price {
+                text-align: left;
+                margin-top: 5px;
+            }
         }
-
     </style>
 </head>
 <body>
@@ -173,10 +191,10 @@
         <button onclick="switchCategory('category2')">春节大礼包</button>
     </div>
 
-    <!-- 商品展示区域 -->
+    <!-- 类目1商品 -->
     <div id="category1" class="container active">
-        <div class="item" onclick="showProductModal('松溪手工红糖', '源自天然甘蔗，纯手工制作，保留原始风味。', ['static/images/hongtang01.jpg', 'static/images/hongtang02.jpg', 'static/images/hongtang03.jpg', 'static/images/hongtang04.jpg'])">
-            <img src="static/images/hongtang01.jpg" alt="松溪手工红糖">
+        <div class="item">
+            <img src="static/images/hongtang04.jpg" alt="松溪手工红糖">
             <div class="info">
                 <h3>松溪手工红糖</h3>
                 <span class="price">¥78</span>
@@ -185,8 +203,9 @@
         </div>
     </div>
 
+    <!-- 类目2商品 -->
     <div id="category2" class="container" style="display: none;">
-        <div class="item" onclick="showProductModal('春节大礼包', '丰盛的传统美食组合，适合节日送礼。', ['static/images/cookie01.jpg', 'static/images/cookie02.jpg', 'static/images/cookie03.jpg', 'static/images/cookie04.jpg'])">
+        <div class="item">
             <img src="static/images/cookie05.jpg" alt="春节大礼包">
             <div class="info">
                 <h3>春节大礼包</h3>
@@ -197,24 +216,13 @@
     </div>
 
     <!-- 浮动下单咨询按钮 -->
-    <button class="consult-btn" onclick="showConsultModal()">下单咨询</button>
+    <button class="consult-btn" onclick="showModal('松溪手工红糖，源自天然甘蔗，纯手工制作，保留原始风味。', ['static/images/hongtang01.jpg', 'static/images/hongtang02.jpg', 'static/images/hongtang03.jpg', 'static/images/hongtang04.jpg'])">下单咨询</button>
 
-    <!-- 弹窗 - 商品介绍 -->
-    <div id="productModal" class="product-modal">
+    <!-- 弹窗 -->
+    <div id="modal" class="modal" onclick="closeModal(event)">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeProductModal()">×</button>
-            <h3 id="productTitle"></h3>
-            <p id="productDescription"></p>
-            <div id="productImages"></div>
-        </div>
-    </div>
-
-    <!-- 弹窗 - 下单咨询 -->
-    <div id="consultModal" class="consult-modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeConsultModal()">×</button>
-            <h3>下单咨询</h3>
-            <img src="static/images/wechat.jpg" alt="微信二维码">
+            <div class="modal-header" id="modal-header"></div>
+            <div class="modal-body" id="modal-body"></div>
         </div>
     </div>
 
@@ -226,6 +234,7 @@
                 container.style.display = 'none';
             });
 
+            // 显示选择的类目
             const selectedCategory = document.getElementById(category);
             selectedCategory.classList.add('active');
             selectedCategory.style.display = 'block';
@@ -235,34 +244,22 @@
             document.querySelector(`.navbar button[onclick="switchCategory('${category}')"]`).classList.add('active');
         }
 
-        function showProductModal(title, description, images) {
-            document.getElementById('productTitle').innerText = title;
-            document.getElementById('productDescription').innerText = description;
-
-            // 清空图片容器
-            const productImagesContainer = document.getElementById('productImages');
-            productImagesContainer.innerHTML = '';
-
-            // 添加图片到容器
-            images.forEach(imgSrc => {
+        function showModal(description, images) {
+            document.getElementById('modal-header').textContent = description;
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = '';
+            images.forEach(src => {
                 const img = document.createElement('img');
-                img.src = imgSrc;
-                productImagesContainer.appendChild(img);
+                img.src = src;
+                modalBody.appendChild(img);
             });
-
-            document.getElementById('productModal').style.display = 'flex';
+            document.getElementById('modal').style.display = 'flex';
         }
 
-        function closeProductModal() {
-            document.getElementById('productModal').style.display = 'none';
-        }
-
-        function showConsultModal() {
-            document.getElementById('consultModal').style.display = 'flex';
-        }
-
-        function closeConsultModal() {
-            document.getElementById('consultModal').style.display = 'none';
+        function closeModal(event) {
+            if (event.target.id === 'modal' || event.target.classList.contains('modal-close')) {
+                document.getElementById('modal').style.display = 'none';
+            }
         }
     </script>
 
