@@ -163,6 +163,14 @@
             cursor: pointer;
         }
 
+        /* 微信二维码的样式 */
+        .wechat-qr img {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            display: block;
+        }
+
         @media (max-width: 768px) {
             .navbar button {
                 font-size: 16px;
@@ -193,7 +201,7 @@
 
     <!-- 类目1商品 -->
     <div id="category1" class="container active">
-        <div class="item">
+        <div class="item" onclick="showProductModal('松溪手工红糖', '源自天然甘蔗，纯手工制作，保留原始风味。', ['static/images/hongtang01.jpg', 'static/images/hongtang02.jpg', 'static/images/hongtang03.jpg', 'static/images/hongtang04.jpg'])">
             <img src="static/images/hongtang04.jpg" alt="松溪手工红糖">
             <div class="info">
                 <h3>松溪手工红糖</h3>
@@ -205,7 +213,7 @@
 
     <!-- 类目2商品 -->
     <div id="category2" class="container" style="display: none;">
-        <div class="item">
+        <div class="item" onclick="showProductModal('春节大礼包', '丰盛的传统美食组合，适合节日送礼。', ['static/images/cookie01.jpg', 'static/images/cookie02.jpg', 'static/images/cookie03.jpg', 'static/images/cookie04.jpg'])">
             <img src="static/images/cookie05.jpg" alt="春节大礼包">
             <div class="info">
                 <h3>春节大礼包</h3>
@@ -216,13 +224,14 @@
     </div>
 
     <!-- 浮动下单咨询按钮 -->
-    <button class="consult-btn" onclick="showModal('松溪手工红糖，源自天然甘蔗，纯手工制作，保留原始风味。', ['static/images/hongtang01.jpg', 'static/images/hongtang02.jpg', 'static/images/hongtang03.jpg', 'static/images/hongtang04.jpg'])">下单咨询</button>
+    <button class="consult-btn" onclick="showWechatQRCode()">下单咨询</button>
 
     <!-- 弹窗 -->
     <div id="modal" class="modal" onclick="closeModal(event)">
         <div class="modal-content">
             <div class="modal-header" id="modal-header"></div>
             <div class="modal-body" id="modal-body"></div>
+            <button class="modal-close" onclick="closeModal(event)">×</button>
         </div>
     </div>
 
@@ -244,8 +253,8 @@
             document.querySelector(`.navbar button[onclick="switchCategory('${category}')"]`).classList.add('active');
         }
 
-        function showModal(description, images) {
-            document.getElementById('modal-header').textContent = description;
+        function showProductModal(title, description, images) {
+            document.getElementById('modal-header').textContent = title + ' - ' + description;
             const modalBody = document.getElementById('modal-body');
             modalBody.innerHTML = '';
             images.forEach(src => {
@@ -253,6 +262,16 @@
                 img.src = src;
                 modalBody.appendChild(img);
             });
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function showWechatQRCode() {
+            document.getElementById('modal-header').textContent = '下单咨询';
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = '';
+            const qrImage = document.createElement('img');
+            qrImage.src = 'static/images/wechat-qr-code.jpg'; // 微信二维码的图片路径
+            modalBody.appendChild(qrImage);
             document.getElementById('modal').style.display = 'flex';
         }
 
