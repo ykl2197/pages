@@ -93,18 +93,8 @@
 
         .modal-body img {
             width: 100%;
-            max-width: 200px;
+            max-width: 250px;  /* 恢复图片样式 */
             margin-bottom: 15px;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -144,7 +134,6 @@
     <!-- 弹窗 -->
     <div id="modal" class="modal" onclick="closeModal(event)">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal(event)">&times;</button>
             <div class="modal-header" id="modal-header"></div>
             <div class="modal-body" id="modal-body"></div>
         </div>
@@ -156,7 +145,6 @@
     <!-- 联系我弹窗 -->
     <div id="contact-modal" class="modal" onclick="closeModal(event)">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal(event)">&times;</button>
             <div class="modal-header">长按识别二维码加我微信下单购买</div>
             <div class="modal-body">
                 <img src="static/images/wechat-qrcode.jpg" alt="微信二维码">
@@ -193,11 +181,8 @@
         }
 
         function closeModal(event) {
-            if (event.target.id === 'modal' || event.target.classList.contains('modal-close')) {
-                document.getElementById('modal').style.display = 'none';
-            }
-            if (event.target.id === 'contact-modal' || event.target.classList.contains('modal-close')) {
-                document.getElementById('contact-modal').style.display = 'none';
+            if (event.target.id === 'modal' || event.target.id === 'contact-modal') {
+                event.target.style.display = 'none';
             }
         }
 
