@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分类导航与瀑布流展示</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        /* 顶部导航样式 */
+        .navbar {
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .navbar button {
+            background: none;
+            border: none;
+            color: white;
+            margin: 0 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navbar button.active {
+            border-bottom: 2px solid #ff9900;
+        }
+
+        /* 瀑布流容器样式 */
+        .container {
+            display: none;
+            column-count: 3;
+            column-gap: 15px;
+            padding: 20px;
+        }
+
+        .container.active {
+            display: block;
+        }
+
+        /* 商品卡片样式 */
+        .item {
+            background-color: white;
+            margin-bottom: 15px;
+            break-inside: avoid;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .item img {
+            width: 100%;
+            display: block;
+        }
+
+        .item .info {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .item .info h3 {
+            font-size: 18px;
+            margin: 0;
+            margin-bottom: 5px;
+        }
+
+        .item .info p {
+            font-size: 14px;
+            color: gray;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航 -->
+    <div class="navbar">
+        <button class="active" onclick="switchCategory('category1')">类目1</button>
+        <button onclick="switchCategory('category2')">类目2</button>
+    </div>
+
+    <!-- 类目1商品 -->
+    <div id="category1" class="container active">
+        <div class="item">
+            <img src="https://via.placeholder.com/150" alt="商品1">
+            <div class="info">
+                <h3>商品1</h3>
+                <p>描述1</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="https://via.placeholder.com/150" alt="商品2">
+            <div class="info">
+                <h3>商品2</h3>
+                <p>描述2</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="https://via.placeholder.com/150" alt="商品3">
+            <div class="info">
+                <h3>商品3</h3>
+                <p>描述3</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 类目2商品 -->
+    <div id="category2" class="container">
+        <div class="item">
+            <img src="https://via.placeholder.com/150" alt="商品A">
+            <div class="info">
+                <h3>商品A</h3>
+                <p>描述A</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="https://via.placeholder.com/150" alt="商品B">
+            <div class="info">
+                <h3>商品B</h3>
+                <p>描述B</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="https://via.placeholder.com/150" alt="商品C">
+            <div class="info">
+                <h3>商品C</h3>
+                <p>描述C</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchCategory(category) {
+            // 隐藏所有类目
+            const containers = document.querySelectorAll('.container');
+            containers.forEach(container => container.classList.remove('active'));
+
+            // 显示对应类目
+            document.getElementById(category).classList.add('active');
+
+            // 更新导航按钮状态
+            const buttons = document.querySelectorAll('.navbar button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            document.querySelector(`.navbar button[onclick="switchCategory('${category}')"]`).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
