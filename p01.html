@@ -43,46 +43,43 @@
             overflow: hidden;
             cursor: pointer;
             display: grid;
-            grid-template-columns: 3fr 1fr;
+            grid-template-columns: 1fr 3fr;
             align-items: center;
+            padding: 10px;
         }
 
         .item img {
-            width: 90%;
+            width: 100%;
             display: block;
-            margin: 10px auto;
+            margin: auto;
             border-radius: 5px;
-            grid-column: 1 / -1;
         }
 
         .item .info {
-            padding: 10px;
+            padding: 0 10px;
             text-align: left;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            align-items: center;
         }
 
         .item .info h3 {
             font-size: 20px;
             margin: 0;
-            margin-bottom: 5px;
+        }
+
+        .item .info .price {
+            font-size: 18px;
+            color: #ff4500;
+            font-weight: bold;
+            text-align: right;
         }
 
         .item .info p {
+            grid-column: span 2;
             font-size: 14px;
             color: gray;
-            margin: 0;
-        }
-
-        .item .price {
-            font-size: 24px;
-            color: #ff4500;
-            font-weight: bold;
-            background-color: #fff8e7;
-            text-align: center;
-            padding: 15px;
-            border-left: 2px solid #ffcc99;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin: 5px 0 0 0;
         }
 
         /* 弹窗样式 */
@@ -155,13 +152,13 @@
                 grid-template-columns: 1fr;
             }
 
-            .item img {
-                width: 100%;
+            .item .info {
+                grid-template-columns: 1fr;
             }
 
-            .item .price {
-                border-left: none;
-                border-top: 2px solid #ffcc99;
+            .item .info .price {
+                text-align: left;
+                margin-top: 5px;
             }
         }
     </style>
@@ -180,9 +177,9 @@
             <img src="static/images/hongtang01.jpg" alt="松溪手工红糖">
             <div class="info">
                 <h3>松溪手工红糖</h3>
+                <span class="price">¥68</span>
                 <p>源自天然甘蔗，纯手工制作，保留原始风味。</p>
             </div>
-            <div class="price">¥68</div>
         </div>
     </div>
 
