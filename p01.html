@@ -70,7 +70,7 @@
         }
 
         .item .info h3 {
-            font-size: 16px;
+            font-size: 20px; /* 调大商品名称字体 */
             margin: 0;
             margin-bottom: 5px;
             text-align: left;
@@ -83,6 +83,16 @@
             color: gray;
             margin: 0;
             text-align: left;
+        }
+
+        .item .info .price {
+            font-size: 18px;
+            color: #ff4500; /* 显眼的橙红色 */
+            font-weight: bold;
+            margin-top: 5px;
+            text-align: left;
+            width: 100%;
+            padding-left: 10px;
         }
 
         /* 弹窗样式 */
@@ -121,7 +131,7 @@
             padding: 15px;
             font-size: 16px;
             font-weight: bold;
-            text-align: le ft;
+            text-align: left;
             border-bottom: 1px solid #ddd;
             position: relative;
         }
@@ -152,7 +162,7 @@
             }
 
             .item .info h3 {
-                font-size: 14px;
+                font-size: 18px;
             }
 
             .item .info p {
@@ -175,17 +185,11 @@
             <img src="static/images/hongtang01.jpg" alt="自制红糖">
             <div class="info">
                 <h3>松溪手工红糖</h3>
-                <p>南平松溪优质红糖，源自天然甘蔗，纯手工自制，68礼盒一斤装🎁包邮</p>
+                <p>南平松溪优质红糖，源自天然甘蔗，纯手工自制</p>
+                <div class="price">68元 🎁 包邮</div>
             </div>
         </div>
-       <!-- <div class="item" onclick="showModal('商品2描述', ['https://via.placeholder.com/300'])">
-            <img src="https://via.placeholder.com/150" alt="商品2">
-            <div class="info">
-                <h3>商品2</h3>
-                <p>描述2</p>
-            </div>
-        </div>
-    </div>  -->
+    </div>
 
     <!-- 类目2商品 -->
     <div id="category2" class="container">
