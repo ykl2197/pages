@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>自由职业者</title>
+    <title>商品展示</title>
     <style>
         body {
             margin: 0;
@@ -34,16 +34,6 @@
             font-weight: bold;
         }
 
-        /* 垂直平铺容器样式 */
-        .container {
-            display: none;
-            padding: 20px;
-        }
-
-        .container.active {
-            display: block;
-        }
-
         /* 商品卡片样式 */
         .item {
             background-color: white;
@@ -52,8 +42,8 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             cursor: pointer;
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
             align-items: center;
         }
 
@@ -62,37 +52,37 @@
             display: block;
             margin: 10px auto;
             border-radius: 5px;
+            grid-column: 1 / -1;
         }
 
         .item .info {
             padding: 10px;
-            text-align: center;
+            text-align: left;
         }
 
         .item .info h3 {
-            font-size: 20px; /* 调大商品名称字体 */
+            font-size: 20px;
             margin: 0;
             margin-bottom: 5px;
-            text-align: left;
-            width: 100%;
-            padding-left: 10px;
         }
 
         .item .info p {
             font-size: 14px;
             color: gray;
             margin: 0;
-            text-align: left;
         }
 
-        .item .info .price {
-            font-size: 18px;
-            color: #ff4500; /* 显眼的橙红色 */
+        .item .price {
+            font-size: 24px;
+            color: #ff4500;
             font-weight: bold;
-            margin-top: 5px;
-            text-align: left;
-            width: 100%;
-            padding-left: 10px;
+            background-color: #fff8e7;
+            text-align: center;
+            padding: 15px;
+            border-left: 2px solid #ffcc99;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* 弹窗样式 */
@@ -161,12 +151,17 @@
                 font-size: 16px;
             }
 
-            .item .info h3 {
-                font-size: 18px;
+            .item {
+                grid-template-columns: 1fr;
             }
 
-            .item .info p {
-                font-size: 12px;
+            .item img {
+                width: 100%;
+            }
+
+            .item .price {
+                border-left: none;
+                border-top: 2px solid #ffcc99;
             }
         }
     </style>
@@ -181,24 +176,13 @@
 
     <!-- 类目1商品 -->
     <div id="category1" class="container active">
-        <div class="item" onclick="showModal('南平松溪优质红糖，源自天然甘蔗，纯手工自制，保留传统工艺与原始风味。每一块红糖都凝聚着匠心与自然的味道，香甜不腻，营养丰富。精选礼盒包装，一斤装适合馈赠亲友或自用滋补，特别适合寒冷季节暖身调养。现限时优惠，68元包邮到家，品质承诺，让您感受正宗红糖的温暖与甘甜。', ['static/images/hongtang01.jpg', 'static/images/hongtang02.jpg', 'static/images/hongtang03.jpg', 'static/images/hongtang04.jpg'])">
-            <img src="static/images/hongtang01.jpg" alt="自制红糖">
+        <div class="item" onclick="showModal('松溪手工红糖，源自天然甘蔗，纯手工制作，保留原始风味。', ['static/images/hongtang01.jpg', 'static/images/hongtang02.jpg'])">
+            <img src="static/images/hongtang01.jpg" alt="松溪手工红糖">
             <div class="info">
                 <h3>松溪手工红糖</h3>
-                <p>南平松溪优质红糖，源自天然甘蔗，纯手工自制</p>
-                <div class="price">68元 🎁 包邮</div>
+                <p>源自天然甘蔗，纯手工制作，保留原始风味。</p>
             </div>
-        </div>
-    </div>
-
-    <!-- 类目2商品 -->
-    <div id="category2" class="container">
-        <div class="item" onclick="showModal('商品A描述', ['https://via.placeholder.com/300', 'https://via.placeholder.com/300'])">
-            <img src="https://via.placeholder.com/150" alt="商品A">
-            <div class="info">
-                <h3>商品A</h3>
-                <p>描述A</p>
-            </div>
+            <div class="price">¥68</div>
         </div>
     </div>
 
