@@ -9,6 +9,7 @@
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
+            position: relative; /* 确保浮标和弹窗不会影响整个页面布局 */
         }
 
         /* 顶部导航样式 */
@@ -67,10 +68,10 @@
         }
 
         .item .info .price {
-            font-size: 22px; /* 增大字体 */
+            font-size: 22px;
             color: #ff4500;
             font-weight: bold;
-            text-align: left; /* 将价格位置调整为左对齐 */
+            text-align: left;
             margin-top: 5px;
         }
 
@@ -92,6 +93,7 @@
             background: rgba(0, 0, 0, 0.5);
             justify-content: flex-end;
             align-items: flex-end;
+            z-index: 1000; /* 确保弹窗在最上面 */
         }
 
         .modal-content {
@@ -155,6 +157,7 @@
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             text-align: center;
+            z-index: 999; /* 确保浮标在商品内容上方 */
         }
 
         /* 微信二维码弹窗样式 */
@@ -168,6 +171,7 @@
             background: rgba(0, 0, 0, 0.7);
             justify-content: center;
             align-items: center;
+            z-index: 1001; /* 确保二维码弹窗位于浮标和商品内容上方 */
         }
 
         .qr-modal-content {
@@ -235,12 +239,28 @@
 
     <!-- 类目1商品 -->
     <div id="category1" class="container active">
-        <!-- 商品内容 -->
+        <div class="item" onclick="showModal('商品1描述', ['static/images/product1.jpg'])">
+            <img src="static/images/product1.jpg" alt="商品1">
+            <div class="info">
+                <h3>商品1</h3>
+                <p>这是商品1的简介</p>
+                <div class="price">¥ 100</div>
+            </div>
+        </div>
+        <!-- 更多商品... -->
     </div>
 
     <!-- 类目2商品 -->
     <div id="category2" class="container" style="display: none;">
-        <!-- 商品内容 -->
+        <div class="item" onclick="showModal('商品2描述', ['static/images/product2.jpg'])">
+            <img src="static/images/product2.jpg" alt="商品2">
+            <div class="info">
+                <h3>商品2</h3>
+                <p>这是商品2的简介</p>
+                <div class="price">¥ 200</div>
+            </div>
+        </div>
+        <!-- 更多商品... -->
     </div>
 
     <!-- 弹窗 -->
@@ -258,7 +278,7 @@
     <div id="qr-modal" class="qr-modal" onclick="closeQrModal(event)">
         <div class="qr-modal-content">
             <button class="qr-modal-close" onclick="closeQrModal(event)">×</button>
-            <img src="static/images/wechat.jpg" alt="微信二维码">
+            <img src="static/images/wechat-qr-code.png" alt="微信二维码">
             <p>长按识别二维码加我微信下单购买</p>
         </div>
     </div>
