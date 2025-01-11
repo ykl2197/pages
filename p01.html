@@ -81,16 +81,25 @@
             margin: 5px 0 0 0;
         }
 
-        .item .consult-btn {
-            padding: 10px 15px;
+        /* 浮动按钮样式 */
+        .consult-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 80px; /* 向上偏移一点 */
+            padding: 15px 20px;
             background-color: #ff9900;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             cursor: pointer;
-            margin-top: 10px;
-            font-size: 14px;
-            text-align: center;
+            z-index: 1000; /* 确保浮动按钮在页面内容上方 */
+            transition: transform 0.3s ease;
+        }
+
+        .consult-btn:hover {
+            transform: scale(1.1);
         }
 
         /* 弹窗样式 */
@@ -191,7 +200,6 @@
                 <span class="price">¥78</span>
                 <p>源自天然甘蔗，纯手工制作，保留原始风味。</p>
             </div>
-            <button class="consult-btn" onclick="showModal('松溪手工红糖，源自天然甘蔗，纯手工制作，保留原始风味。', ['static/images/hongtang01.jpg', 'static/images/hongtang02.jpg', 'static/images/hongtang03.jpg', 'static/images/hongtang04.jpg'])">下单咨询</button>
         </div>
     </div>
 
@@ -204,9 +212,11 @@
                 <span class="price">¥198</span>
                 <p>丰盛的传统美食组合，适合节日送礼。</p>
             </div>
-            <button class="consult-btn" onclick="showModal('春节大礼包，丰盛的传统美食组合，适合节日送礼。', ['static/images/cookie01.jpg', 'static/images/cookie02.jpg', 'static/images/cookie03.jpg', 'static/images/cookie04.jpg', 'static/images/cookie05.jpg', 'static/images/cookie06.jpg', 'static/images/cookie07.jpg'])">下单咨询</button>
         </div>
     </div>
+
+    <!-- 浮动下单咨询按钮 -->
+    <button class="consult-btn" onclick="showModal('松溪手工红糖，源自天然甘蔗，纯手工制作，保留原始风味。', ['static/images/hongtang01.jpg', 'static/images/hongtang02.jpg', 'static/images/hongtang03.jpg', 'static/images/hongtang04.jpg'])">下单咨询</button>
 
     <!-- 弹窗 -->
     <div id="modal" class="modal" onclick="closeModal(event)">
