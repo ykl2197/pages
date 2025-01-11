@@ -90,18 +90,17 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
+            justify-content: flex-end;
+            align-items: flex-end;
         }
 
         .modal-content {
             background: white;
-            width: 80%;
-            max-width: 500px;
-            height: auto;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
+            width: 100%;
+            height: 90%;
+            border-radius: 20px 20px 0 0;
+            overflow-y: auto;
+            position: relative;
             animation: slideUp 0.3s ease;
         }
 
@@ -114,29 +113,33 @@
             }
         }
 
+        .modal-header {
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            position: relative;
+        }
+
+        .modal-body {
+            padding: 15px;
+        }
+
+        .modal-body img {
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
         .modal-close {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 15px;
+            right: 15px;
             background: none;
             border: none;
             font-size: 20px;
             cursor: pointer;
-        }
-
-        /* 浮标按钮 */
-        .floating-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #ff9900;
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            font-size: 18px;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         @media (max-width: 768px) {
@@ -196,13 +199,10 @@
     <!-- 弹窗 -->
     <div id="modal" class="modal" onclick="closeModal(event)">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal(event)">×</button>
-            <img src="static/images/wechat.jpg" alt="微信二维码" />
+            <div class="modal-header" id="modal-header"></div>
+            <div class="modal-body" id="modal-body"></div>
         </div>
     </div>
-
-    <!-- 下单咨询按钮 -->
-    <button class="floating-btn" onclick="showModalWechat()">下单咨询</button>
 
     <script>
         function switchCategory(category) {
@@ -219,7 +219,7 @@
 
             const buttons = document.querySelectorAll('.navbar button');
             buttons.forEach(button => button.classList.remove('active'));
-            document.querySelector(`.navbar button[onclick="switchCategory('${category}')"]`).classList.add('active');
+            document.querySelector(.navbar button[onclick="switchCategory('${category}')"]).classList.add('active');
         }
 
         function showModal(description, images) {
@@ -231,10 +231,6 @@
                 img.src = src;
                 modalBody.appendChild(img);
             });
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function showModalWechat() {
             document.getElementById('modal').style.display = 'flex';
         }
 
