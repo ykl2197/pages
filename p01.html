@@ -102,8 +102,8 @@
             transform: scale(1.1);
         }
 
-        /* 弹窗样式 - 下单咨询 */
-        .consult-modal {
+        /* 弹窗样式 - 商品介绍 */
+        .product-modal {
             display: none;
             position: fixed;
             top: 0;
@@ -116,7 +116,7 @@
             z-index: 10000;
         }
 
-        .consult-modal .modal-content {
+        .product-modal .modal-content {
             background: white;
             width: 80%;
             max-width: 600px;
@@ -126,13 +126,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        .consult-modal img {
-            width: 100%;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-
-        .consult-modal .modal-close {
+        .product-modal .modal-close {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -143,12 +137,11 @@
             cursor: pointer;
         }
 
-        /* 微信二维码的样式 */
-        .wechat-qr img {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto;
-            display: block;
+        /* 弹窗商品图片样式 */
+        .product-modal img {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px 0;
         }
 
         @media (max-width: 768px) {
@@ -206,6 +199,16 @@
     <!-- 浮动下单咨询按钮 -->
     <button class="consult-btn" onclick="showConsultModal()">下单咨询</button>
 
+    <!-- 弹窗 - 商品介绍 -->
+    <div id="productModal" class="product-modal" onclick="closeProductModal(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProductModal(event)">×</button>
+            <h3 id="productTitle"></h3>
+            <p id="productDescription"></p>
+            <div id="productImages"></div>
+        </div>
+    </div>
+
     <!-- 弹窗 - 下单咨询 -->
     <div id="consultModal" class="consult-modal" onclick="closeConsultModal(event)">
         <div class="modal-content">
@@ -234,7 +237,28 @@
         }
 
         function showProductModal(title, description, images) {
-            alert(title + ": " + description); // 可以根据需求替换为实际的商品介绍弹窗
+            document.getElementById('productTitle').innerText = title;
+            document.getElementById('productDescription').innerText = description;
+
+            // 清空图片容器
+            const productImagesContainer = document.getElementById('productImages');
+            productImagesContainer.innerHTML = '';
+
+            // 添加图片到容器
+            images.forEach(imgSrc => {
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                productImagesContainer.appendChild(img);
+            });
+
+            // 显示弹窗
+            document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function closeProductModal(event) {
+            if (event.target.id === 'productModal' || event.target.classList.contains('modal-close')) {
+                document.getElementById('productModal').style.display = 'none';
+            }
         }
 
         function showConsultModal() {
