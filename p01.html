@@ -179,6 +179,39 @@
                 margin-top: 5px;
             }
         }
+        /* 商品详情弹窗样式 */
+.product-modal .product-modal-content {
+    background: white;
+    width: 100%; /* 商品详情弹窗宽度为100% */
+    height: 80%;
+    border-radius: 0;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.3s ease;
+}
+
+/* 微信二维码弹窗样式 */
+.wechat-modal .wechat-modal-content {
+    background: white;
+    width: 50%; /* 微信二维码弹窗宽度为50% */
+    height: auto;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+/* 微信二维码弹窗动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
     </style>
 </head>
 <body>
@@ -216,27 +249,29 @@
     </div>
 
     <!-- 弹窗 -->
-    <div id="modal" class="modal" onclick="closeModal(event)">
-        <div class="modal-content">
-            <div class="modal-header" id="modal-header"></div>
-            <div class="modal-body" id="modal-body"></div>
-        </div>
+      <!-- 商品详情弹窗 -->
+<div id="modal" class="modal product-modal" onclick="closeModal(event)">
+    <div class="modal-content product-modal-content">
+        <div class="modal-header" id="modal-header"></div>
+        <div class="modal-body" id="modal-body"></div>
     </div>
+</div>
 
     <!-- 下单咨询按钮 -->
     <div class="order-consult-btn" onclick="showConsultModal()">
         下单咨询
     </div>
 
-    <!-- 微信二维码弹窗 -->
-    <div id="consultModal" class="modal" onclick="closeConsultModal(event)">
-        <div class="modal-content" style="width: 50%; height: auto;">
-            <div class="modal-header">扫码咨询</div>
-            <div class="modal-body">
-                <img src="static/images/wechat.jpg" alt="微信二维码">
-            </div>
+<!-- 微信二维码弹窗 -->
+<div id="consultModal" class="modal wechat-modal" onclick="closeConsultModal(event)">
+    <div class="modal-content wechat-modal-content">
+        <div class="modal-header">扫码咨询</div>
+        <div class="modal-body">
+            <img src="static/images/wechat.jpg" alt="微信二维码">
         </div>
     </div>
+</div>
+
 
     <script>
         function switchCategory(category) {
