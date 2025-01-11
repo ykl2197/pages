@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>自由乐</title>
+    <title>自由购</title>
     <style>
         body {
             margin: 0;
@@ -67,10 +67,10 @@
         }
 
         .item .info .price {
-            font-size: 22px; /* 增大字体 */
+            font-size: 22px;
             color: #ff4500;
             font-weight: bold;
-            text-align: left; /* 将价格位置调整为左对齐 */
+            text-align: left;
             margin-top: 5px;
         }
 
@@ -81,27 +81,28 @@
             margin: 5px 0 0 0;
         }
 
-        /* 弹窗样式 */
+        /* 弹窗基础样式 */
         .modal {
-             display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    justify-content: center; /* 垂直居中 */
-    align-items: center; /* 水平居中 */
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
         }
 
         .modal-content {
-           background: white;
-    width: 80%;
-    height: 80%;
-    border-radius: 0; /* 去掉圆角 */
-    overflow-y: auto;
-    position: relative;
-    animation: slideUp 0.3s ease;
+            background: white;
+            width: 80%;
+            height: 80%;
+            margin-top: 35%;
+            border-radius: 10px;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
         }
 
         @keyframes slideUp {
@@ -119,7 +120,6 @@
             font-weight: bold;
             text-align: left;
             border-bottom: 1px solid #ddd;
-            position: relative;
         }
 
         .modal-body {
@@ -132,17 +132,31 @@
             border-radius: 8px;
         }
 
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
+        /* 商品详情弹窗 */
+        .product-modal .modal-content {
+            width: 100%;
+            height: 80%;
+            border-radius: 0;
         }
 
-        /* 下单咨询浮动按钮 */
+        /* 微信二维码弹窗 */
+        .wechat-modal .modal-content {
+            width: 50%;
+            height: auto;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* 下单咨询按钮 */
         .order-consult-btn {
             position: fixed;
             bottom: 20px;
@@ -173,49 +187,10 @@
             .item .info {
                 grid-template-columns: 1fr;
             }
-
-            .item .info .price {
-                text-align: left;
-                margin-top: 5px;
-            }
         }
-        /* 商品详情弹窗样式 */
-.product-modal .product-modal-content {
-    background: white;
-    width: 100%; /* 商品详情弹窗宽度为100% */
-    height: 80%;
-    border-radius: 0;
-    overflow-y: auto;
-    position: relative;
-    animation: slideUp 0.3s ease;
-}
-
-/* 微信二维码弹窗样式 */
-.wechat-modal .wechat-modal-content {
-    background: white;
-    width: 50%; /* 微信二维码弹窗宽度为50% */
-    height: auto;
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-    animation: fadeIn 0.3s ease;
-}
-
-/* 微信二维码弹窗动画 */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
     </style>
 </head>
 <body>
-
     <!-- 顶部导航 -->
     <div class="navbar">
         <button class="active" onclick="switchCategory('category1')">农产品</button>
@@ -224,89 +199,66 @@
 
     <!-- 类目1商品 -->
     <div id="category1" class="container active">
-        <div class="item" onclick="showModal('松溪手工红糖，源自天然甘蔗，纯手工制作，保留原始风味。', ['static/images/hongtang01.jpg', 'static/images/hongtang02.jpg', 'static/images/hongtang03.jpg', 'static/images/hongtang04.jpg'])">
-            <img src="static/images/hongtang04.jpg" alt="松溪手工红糖">
+        <div class="item" onclick="showModal('松溪手工红糖，选用优质天然甘蔗，经过传统工艺纯手工精心制作，保留了甘蔗的原汁原味与天然甘甜。每一颗红糖都散发着浓郁的甘蔗香气，口感醇厚，带有淡淡的焦糖风味，是健康与自然的完美融合。无论是日常饮品、烘焙甜点，还是入菜调味，都能增添独特的风味和营养。', ['static/images/hongtang01.jpg', 'static/images/hongtang02.jpg'])">
+            <img src="static/images/hongtang01.jpg" alt="松溪手工红糖">
             <div class="info">
                 <h3>松溪手工红糖</h3>
                 <span class="price">¥78</span>
-                <p>源自天然甘蔗，纯手工制作，保留原始风味。</p>
+                <p>源自天然甘蔗，纯手工制作。</p>
             </div>
         </div>
-
-        <!-- 其他商品项 -->
     </div>
 
     <!-- 类目2商品 -->
     <div id="category2" class="container" style="display: none;">
-         <div class="item" onclick="showModal('春节大礼包，丰盛的传统美食组合，适合节日送礼。', ['static/images/cookie01.jpg', 'static/images/cookie02.jpg', 'static/images/cookie03.jpg', 'static/images/cookie04.jpg', 'static/images/cookie05.jpg', 'static/images/cookie06.jpg', 'static/images/cookie07.jpg'])">
-            <img src="static/images/cookie07.jpg" alt="春节大礼包">
+        <div class="item" onclick="showModal('春节大礼包，精选传统美食，丰富多样，包含年糕、糖果、干货等经典佳品，寓意团圆和吉祥，适合家庭聚会、节日拜访。无论是自享还是赠送亲友，都是一份温暖心意的选择，传递浓浓节日氛围，传承美好祝福。', ['static/images/cookie01.jpg', 'static/images/cookie02.jpg'])">
+            <img src="static/images/cookie01.jpg" alt="春节大礼包">
             <div class="info">
                 <h3>春节大礼包</h3>
                 <span class="price">¥198</span>
-                <p>丰盛的传统美食组合，适合节日送礼。</p>
+                <p>丰盛的传统美食组合。</p>
             </div>
         </div>
     </div>
 
-    <!-- 弹窗 -->
-      <!-- 商品详情弹窗 -->
-<div id="modal" class="modal product-modal" onclick="closeModal(event)">
-    <div class="modal-content product-modal-content">
-        <div class="modal-header" id="modal-header"></div>
-        <div class="modal-body" id="modal-body"></div>
-    </div>
-</div>
-
-    <!-- 下单咨询按钮 -->
-    <div class="order-consult-btn" onclick="showConsultModal()">
-        下单咨询
-    </div>
-
-<!-- 微信二维码弹窗 -->
-<div id="consultModal" class="modal wechat-modal" onclick="closeConsultModal(event)">
-    <div class="modal-content wechat-modal-content">
-        <div class="modal-header">扫码咨询</div>
-        <div class="modal-body">
-            <img src="static/images/wechat.jpg" alt="微信二维码">
+    <!-- 商品详情弹窗 -->
+    <div id="modal" class="modal product-modal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <div class="modal-header" id="modal-header"></div>
+            <div class="modal-body" id="modal-body"></div>
         </div>
     </div>
-</div>
 
+    <!-- 微信二维码弹窗 -->
+    <div id="consultModal" class="modal wechat-modal" onclick="closeConsultModal(event)">
+        <div class="modal-content">
+            <div class="modal-header">扫码咨询</div>
+            <div class="modal-body">
+                <img src="static/images/wechat.jpg" alt="微信二维码">
+            </div>
+        </div>
+    </div>
+
+    <!-- 下单咨询按钮 -->
+    <div class="order-consult-btn" onclick="showConsultModal()">下单咨询</div>
 
     <script>
         function switchCategory(category) {
-            const containers = document.querySelectorAll('.container');
-            containers.forEach(container => {
-                container.classList.remove('active');
-                container.style.display = 'none';
-            });
-
-            // 显示选择的类目
-            const selectedCategory = document.getElementById(category);
-            selectedCategory.classList.add('active');
-            selectedCategory.style.display = 'block';
-
-            const buttons = document.querySelectorAll('.navbar button');
-            buttons.forEach(button => button.classList.remove('active'));
+            document.querySelectorAll('.container').forEach(c => c.style.display = 'none');
+            document.getElementById(category).style.display = 'block';
+            document.querySelectorAll('.navbar button').forEach(btn => btn.classList.remove('active'));
             document.querySelector(`.navbar button[onclick="switchCategory('${category}')"]`).classList.add('active');
         }
 
         function showModal(description, images) {
             document.getElementById('modal-header').textContent = description;
             const modalBody = document.getElementById('modal-body');
-            modalBody.innerHTML = '';
-            images.forEach(src => {
-                const img = document.createElement('img');
-                img.src = src;
-                modalBody.appendChild(img);
-            });
+            modalBody.innerHTML = images.map(src => `<img src="${src}" />`).join('');
             document.getElementById('modal').style.display = 'flex';
         }
 
         function closeModal(event) {
-            if (event.target.id === 'modal') {
-                document.getElementById('modal').style.display = 'none';
-            }
+            if (event.target.id === 'modal') document.getElementById('modal').style.display = 'none';
         }
 
         function showConsultModal() {
@@ -314,11 +266,8 @@
         }
 
         function closeConsultModal(event) {
-            if (event.target.id === 'consultModal') {
-                document.getElementById('consultModal').style.display = 'none';
-            }
+            if (event.target.id === 'consultModal') document.getElementById('consultModal').style.display = 'none';
         }
     </script>
-
 </body>
 </html>
