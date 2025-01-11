@@ -45,7 +45,6 @@
             display: flex;
             flex-direction: column;
             max-width: 500px;
-            z-index: 1; /* 确保商品在最前面 */
         }
 
         .item img {
@@ -91,16 +90,15 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 2; /* 确保弹窗在按钮上面 */
+            justify-content: flex-end;
+            align-items: flex-end;
         }
 
         .modal-content {
             background: white;
-            width: 80%;  /* 增大弹窗宽度 */
-            height: 70%;
-            border-radius: 10px; /* 保持圆角 */
+            width: 100%;
+            height: 90%;
+            border-radius: 20px 20px 0 0;
             overflow-y: auto;
             position: relative;
             animation: slideUp 0.3s ease;
@@ -144,36 +142,6 @@
             cursor: pointer;
         }
 
-        /* 下单咨询按钮 */
-        .order-btn {
-            position: fixed;
-            bottom: 80px; /* 上调按钮位置 */
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #ff9900;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            animation: blink 1s infinite; /* 闪烁效果 */
-            z-index: 3; /* 确保按钮位于最上面 */
-        }
-
-        @keyframes blink {
-            0% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.6;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
         @media (max-width: 768px) {
             .navbar button {
                 font-size: 16px;
@@ -202,26 +170,39 @@
         <button onclick="switchCategory('category2')">春节大礼包</button>
     </div>
 
-    <!-- 商品展示内容 -->
-    <div class="item">
-        <img src="product_image.jpg" alt="商品图片">
-        <div class="info">
-            <h3>商品名称</h3>
-            <p>商品描述内容，详细说明商品的特点。</p>
-            <div class="price">¥199.99</div>
+    <!-- 类目1商品 -->
+    <div id="category1" class="container active">
+        <div class="item" onclick="showModal('松溪手工红糖，源自天然甘蔗，纯手工制作，保留原始风味。', ['static/images/hongtang01.jpg', 'static/images/hongtang02.jpg', 'static/images/hongtang03.jpg', 'static/images/hongtang04.jpg'])">
+            <img src="static/images/hongtang04.jpg" alt="松溪手工红糖">
+            <div class="info">
+                <h3>松溪手工红糖</h3>
+                <span class="price">¥78</span>
+                <p>源自天然甘蔗，纯手工制作，保留原始风味。</p>
+            </div>
         </div>
+        <!-- 更多商品 -->
     </div>
 
-    <!-- 这里是弹窗内容展示 -->
+    <!-- 类目2商品 -->
+    <div id="category2" class="container" style="display: none;">
+        <div class="item" onclick="showModal('春节大礼包，丰盛的传统美食组合，适合节日送礼。', ['static/images/cookie01.jpg', 'static/images/cookie02.jpg', 'static/images/cookie03.jpg', 'static/images/cookie04.jpg', 'static/images/cookie05.jpg', 'static/images/cookie06.jpg', 'static/images/cookie07.jpg'])">
+            <img src="static/images/cookie05.jpg" alt="春节大礼包">
+            <div class="info">
+                <h3>春节大礼包</h3>
+                <span class="price">¥198</span>
+                <p>丰盛的传统美食组合，适合节日送礼。</p>
+            </div>
+        </div>
+        <!-- 更多商品 -->
+    </div>
+
+    <!-- 弹窗 -->
     <div id="modal" class="modal" onclick="closeModal(event)">
         <div class="modal-content">
             <div class="modal-header" id="modal-header"></div>
             <div class="modal-body" id="modal-body"></div>
         </div>
     </div>
-
-    <!-- 下单咨询按钮 -->
-    <button class="order-btn" onclick="showModal('扫码咨询', ['static/images/wechat_qr_code.jpg'])">下单咨询</button>
 
     <script>
         function switchCategory(category) {
@@ -238,7 +219,7 @@
 
             const buttons = document.querySelectorAll('.navbar button');
             buttons.forEach(button => button.classList.remove('active'));
-            document.querySelector('.navbar button[onclick="switchCategory(\'' + category + '\')"]').classList.add('active');
+            document.querySelector(`.navbar button[onclick="switchCategory('${category}')"]`).classList.add('active');
         }
 
         function showModal(description, images) {
