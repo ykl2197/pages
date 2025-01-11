@@ -183,9 +183,9 @@
     </div>
 
     <!-- 类目2商品 -->
-    <div id="category2" class="container">
-        <div class="item" onclick="showModal('春节大礼包，丰盛的传统美食组合，适合节日送礼。', ['static/images/gift01.jpg', 'static/images/gift02.jpg'])">
-            <img src="static/images/gift01.jpg" alt="春节大礼包">
+    <div id="category2" class="container" style="display: none;">
+        <div class="item" onclick="showModal('春节大礼包，丰盛的传统美食组合，适合节日送礼。', ['static/images/hongtang02.jpg', 'static/images/hongtang01.jpg'])">
+            <img src="static/images/hongtang04" alt="春节大礼包">
             <div class="info">
                 <h3>春节大礼包</h3>
                 <span class="price">¥198</span>
@@ -206,8 +206,13 @@
     <script>
         function switchCategory(category) {
             const containers = document.querySelectorAll('.container');
-            containers.forEach(container => container.classList.remove('active'));
-            document.getElementById(category).classList.add('active');
+            containers.forEach(container => {
+                // 隐藏所有类目
+                container.style.display = 'none';
+            });
+
+            // 显示选择的类目
+            document.getElementById(category).style.display = 'block';
 
             const buttons = document.querySelectorAll('.navbar button');
             buttons.forEach(button => button.classList.remove('active'));
