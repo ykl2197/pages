@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>商品展示</title>
     <style>
+        /* 全局样式 */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
         }
 
-        /* 顶部导航样式 */
+        /* 顶部导航栏 */
         .navbar {
             background-color: #333;
             color: white;
@@ -41,24 +42,20 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            cursor: pointer;
             display: flex;
             flex-direction: column;
             max-width: 500px;
+            cursor: pointer;
         }
 
         .item img {
             width: 100%;
-            display: block;
-            border-bottom: 1px solid #f0f0f0;
+            height: 250px;
+            object-fit: cover;
         }
 
         .item .info {
             padding: 15px;
-            display: grid;
-            grid-template-columns: 3fr 1fr;
-            align-items: center;
-            gap: 10px;
         }
 
         .item .info h3 {
@@ -67,42 +64,38 @@
         }
 
         .item .info .price {
-            font-size: 22px; /* 增大字体 */
+            font-size: 22px;
             color: #ff4500;
             font-weight: bold;
-            text-align: left; /* 将价格位置调整为左对齐 */
-            margin-top: 5px;
         }
 
         .item .info p {
-            grid-column: span 2;
             font-size: 14px;
             color: gray;
-            margin: 5px 0 0 0;
+            margin-top: 10px;
         }
 
         /* 浮动按钮样式 */
         .consult-btn {
             position: fixed;
             right: 20px;
-            bottom: 80px; /* 向上偏移一点 */
+            bottom: 80px;
             padding: 15px 20px;
             background-color: #ff9900;
             color: white;
             border: none;
             border-radius: 50px;
             font-size: 16px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             cursor: pointer;
-            z-index: 1000; /* 确保浮动按钮在页面内容上方 */
-            transition: transform 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .consult-btn:hover {
             transform: scale(1.1);
         }
 
-        /* 弹窗样式 - 商品介绍 */
+        /* 弹窗 - 商品介绍 */
         .product-modal {
             display: none;
             position: fixed;
@@ -124,6 +117,7 @@
             text-align: center;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            overflow: auto;
         }
 
         .product-modal .modal-close {
@@ -137,31 +131,38 @@
             cursor: pointer;
         }
 
-        /* 弹窗商品图片样式 */
         .product-modal img {
             width: 100%;
             max-width: 500px;
             margin: 20px 0;
         }
 
-        @media (max-width: 768px) {
-            .navbar button {
-                font-size: 16px;
-            }
-
-            .item {
-                max-width: 90%;
-            }
-
-            .item .info {
-                grid-template-columns: 1fr;
-            }
-
-            .item .info .price {
-                text-align: left;
-                margin-top: 5px;
-            }
+        /* 弹窗 - 下单咨询 */
+        .consult-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
         }
+
+        .consult-modal .modal-content {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .consult-modal img {
+            width: 200px;
+        }
+
     </style>
 </head>
 <body>
@@ -172,10 +173,10 @@
         <button onclick="switchCategory('category2')">春节大礼包</button>
     </div>
 
-    <!-- 类目1商品 -->
+    <!-- 商品展示区域 -->
     <div id="category1" class="container active">
         <div class="item" onclick="showProductModal('松溪手工红糖', '源自天然甘蔗，纯手工制作，保留原始风味。', ['static/images/hongtang01.jpg', 'static/images/hongtang02.jpg', 'static/images/hongtang03.jpg', 'static/images/hongtang04.jpg'])">
-            <img src="static/images/hongtang04.jpg" alt="松溪手工红糖">
+            <img src="static/images/hongtang01.jpg" alt="松溪手工红糖">
             <div class="info">
                 <h3>松溪手工红糖</h3>
                 <span class="price">¥78</span>
@@ -184,7 +185,6 @@
         </div>
     </div>
 
-    <!-- 类目2商品 -->
     <div id="category2" class="container" style="display: none;">
         <div class="item" onclick="showProductModal('春节大礼包', '丰盛的传统美食组合，适合节日送礼。', ['static/images/cookie01.jpg', 'static/images/cookie02.jpg', 'static/images/cookie03.jpg', 'static/images/cookie04.jpg'])">
             <img src="static/images/cookie05.jpg" alt="春节大礼包">
@@ -200,9 +200,9 @@
     <button class="consult-btn" onclick="showConsultModal()">下单咨询</button>
 
     <!-- 弹窗 - 商品介绍 -->
-    <div id="productModal" class="product-modal" onclick="closeProductModal(event)">
+    <div id="productModal" class="product-modal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeProductModal(event)">×</button>
+            <button class="modal-close" onclick="closeProductModal()">×</button>
             <h3 id="productTitle"></h3>
             <p id="productDescription"></p>
             <div id="productImages"></div>
@@ -210,9 +210,9 @@
     </div>
 
     <!-- 弹窗 - 下单咨询 -->
-    <div id="consultModal" class="consult-modal" onclick="closeConsultModal(event)">
+    <div id="consultModal" class="consult-modal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeConsultModal(event)">×</button>
+            <button class="modal-close" onclick="closeConsultModal()">×</button>
             <h3>下单咨询</h3>
             <img src="static/images/wechat.jpg" alt="微信二维码">
         </div>
@@ -226,7 +226,6 @@
                 container.style.display = 'none';
             });
 
-            // 显示选择的类目
             const selectedCategory = document.getElementById(category);
             selectedCategory.classList.add('active');
             selectedCategory.style.display = 'block';
@@ -251,24 +250,19 @@
                 productImagesContainer.appendChild(img);
             });
 
-            // 显示弹窗
             document.getElementById('productModal').style.display = 'flex';
         }
 
-        function closeProductModal(event) {
-            if (event.target.id === 'productModal' || event.target.classList.contains('modal-close')) {
-                document.getElementById('productModal').style.display = 'none';
-            }
+        function closeProductModal() {
+            document.getElementById('productModal').style.display = 'none';
         }
 
         function showConsultModal() {
             document.getElementById('consultModal').style.display = 'flex';
         }
 
-        function closeConsultModal(event) {
-            if (event.target.id === 'consultModal' || event.target.classList.contains('modal-close')) {
-                document.getElementById('consultModal').style.display = 'none';
-            }
+        function closeConsultModal() {
+            document.getElementById('consultModal').style.display = 'none';
         }
     </script>
 
